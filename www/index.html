@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <title>Todos</title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -15,20 +15,85 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <script src="lib/ionic/js/parse-1.2.17.js"></script>
+
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-  </head>
-  <body ng-app="starter">
 
-    <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
-      </ion-header-bar>
-      <ion-content>
-      </ion-content>
-    </ion-pane>
+    <script src="js/ionic.swipecards.js"></script>
+
+  </head>
+    <body ng-app="yummr" ng-controller="YummrCtrl">
+      <ion-side-menus>
+        <!-- Center content -->
+          <ion-side-menu-content>
+            <ion-header-bar class="bar-dark">
+              <h1 class="title">Yummr</h1>
+              
+    
+                <!-- Delete Task button-->
+
+                <!-- New Task button-->
+                <button class="button button-icon" ng-click="newTask()">
+                  <i class="icon ion-compose"></i>
+                </button>
+        
+
+            </ion-header-bar>
+            <ion-content>
+              <!-- our list and list items -->
+              <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+              </ion-refresher>
+              <ion-list>
+                <ion-item ng-repeat="recipe in recipes">
+                  {{recipe.title}}
+                </ion-item>
+              </ion-list>
+            </ion-content>
+          </ion-side-menu-content>
+          <!-- Left menu -->
+          <ion-side-menu side="left">
+            <ion-header-bar class="bar-dark">
+              <h1 class="title">Projects</h1>
+            </ion-header-bar>
+          </ion-side-menu>
+
+          <script id="new-task.html" type="text/ng-template">
+
+          <div class="modal">
+
+            <!-- Modal header bar -->
+            <ion-header-bar class="bar-secondary">
+              <h1 class="title">New Task</h1>
+              <button class="button button-clear button-positive" ng-click="closeNewTask()">Cancel</button>
+            </ion-header-bar>
+
+            <!-- Modal content area -->
+            <ion-content>
+
+              <form ng-submit="createTask(task)">
+                <div class="list">
+                  <label class="item item-input">
+                    <input type="text" placeholder="What do you need to do?" ng-model="task.title">
+                  </label>
+                </div>
+                <div class="padding">
+                  <button type="submit" class="button button-block button-positive">Create Task</button>
+                </div>
+              </form>
+
+            </ion-content>
+
+          </div>
+
+        </script>
+
+      </ion-side-menus>
+    <script type="text/javascript">
+      Parse.initialize("jftEY1zrrw0yxPkyHseTz5cWfppR4aVmJnCz1N3j","ktYY6bVob3mHsRmhFHNzWeVa2rNekQQc2yfstwIA");
+    </script>
   </body>
 </html>
